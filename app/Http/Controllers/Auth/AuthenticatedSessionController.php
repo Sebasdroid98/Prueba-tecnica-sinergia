@@ -45,4 +45,12 @@ class AuthenticatedSessionController extends Controller
 
         return redirect('/');
     }
+
+    /**
+     * Este metodo define el campo que vamos a usar para el login (email o username)
+     */
+    public function username(){
+        return 'identification';
+    }
+
 }
