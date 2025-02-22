@@ -14,6 +14,7 @@
             </div>
 
             <x-card>
+                @dump($pacientes)
                 <table class="min-w-full border border-gray-300 dark:border-gray-900 dark:text-white rounded-lg">
                     <thead>
                         <tr class="bg-gray-200 dark:bg-gray-700">
@@ -24,16 +25,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="bg-white dark:bg-gray-800">
-                            <td class="px-4 py-2 border dark:border-gray-700">Juan Pérez</td>
-                            <td class="px-4 py-2 border dark:border-gray-700">México</td>
-                            <td class="px-4 py-2 border dark:border-gray-700">México</td>
-                            <td class="px-4 py-2 border dark:border-gray-700 size-1/4">
-                                <x-nav-link href="/" active>Editar</x-nav-link>
-                                <x-nav-link href="/" active>Deshabilitar</x-nav-link>
-                                <x-nav-link href="/" active>Eliminar</x-nav-link>
-                            </td>
-                        </tr>
+                        @forelse ($pacientes as $paciente)     
+                            <tr class="bg-white dark:bg-gray-800">
+                                <td class="px-4 py-2 border dark:border-gray-700">{{ $paciente->numero_documento }}</td>
+                                <td class="px-4 py-2 border dark:border-gray-700">{{ $paciente->fullname }}</td>
+                                <td class="px-4 py-2 border dark:border-gray-700">México</td>
+                                <td class="px-4 py-2 border dark:border-gray-700 size-1/4">
+                                    <x-nav-link href="{{ route('paciente.edit', ['id' => $paciente->id]) }}" active>Editar</x-nav-link>
+                                    <x-nav-link href="/" active>Deshabilitar</x-nav-link>
+                                    <x-nav-link href="/" active>Eliminar</x-nav-link>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr class="bg-white dark:bg-gray-800">
+                                <td colspan="4" class="px-4 py-2 border dark:border-gray-700">Sin datos</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </x-card>

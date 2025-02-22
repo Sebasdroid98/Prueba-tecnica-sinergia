@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,9 +19,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', [PacienteController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::controller(PacienteController::class)->group(function() {
+    Route::get('/dashboard','index')->name('dashboard');
+    Route::get('/paciente-edit/{id}', 'edit')->name('paciente.edit');
+    Route::put('/paciente-update/{id}', 'update')->name('paciente.update');
+})->middleware('auth');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
