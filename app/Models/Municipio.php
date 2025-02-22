@@ -10,7 +10,7 @@ class Municipio extends Model
     use HasFactory;
 
     // Relacion uno a muchos (inversa) con departamentos
-    public function departamentos() {
+    public function departamento() {
         return $this->belongsTo('App\Models\Departamento');
     }
 }

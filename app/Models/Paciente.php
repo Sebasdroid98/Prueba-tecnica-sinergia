@@ -10,6 +10,23 @@ class Paciente extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'numero_documento',
+        'primer_nombre',
+        'segundo_nombre',
+        'primer_apellido',
+        'segundo_apellido',
+        'estado',
+        'tipo_documento',
+        'genero',
+        'municipio',
+    ];
+
     // Accesor para crear el nombre completo
     public function fullname(): Attribute{
         return new Attribute(
@@ -17,8 +34,18 @@ class Paciente extends Model
         );
     }
 
-    // Relacion uno a muchos con genero
+    // Relacion uno a muchos con generos
     public function genero() {
         return $this->belongsTo('App\Models\Genero');
+    }
+
+    // Relacion uno a muchos con tipo de documentos
+    public function tipoDocumento() {
+        return $this->belongsTo('App\Models\TipoDocumento');
+    }
+
+    // Relacion uno a muchos con municipios
+    public function municipio() {
+        return $this->belongsTo('App\Models\Municipio');
     }
 }

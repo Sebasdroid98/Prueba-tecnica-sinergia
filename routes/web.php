@@ -21,9 +21,13 @@ Route::get('/', function () {
 
 // Route::get('/dashboard', [PacienteController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::controller(PacienteController::class)->group(function() {
-    Route::get('/dashboard','index')->name('dashboard');
-    Route::get('/paciente-edit/{id}', 'edit')->name('paciente.edit');
-    Route::put('/paciente-update/{id}', 'update')->name('paciente.update');
+    Route::get('dashboard','index')->name('dashboard');
+    Route::get('paciente-create', 'create')->name('paciente.create');
+    Route::get('paciente-edit/{id}', 'edit')->name('paciente.edit');
+    Route::post('paciente-store', 'store')->name('paciente.store');
+    Route::put('paciente-update/{id}', 'update')->name('paciente.update');
+    Route::delete('paciente-delete/{id}', 'destroy');
+    Route::get('obtener-municipios-depto/{id}', 'obtenerMunicipiosDeptoById')->name('obtener-municipios-depto');
 })->middleware('auth');
 
 Route::middleware('auth')->group(function () {

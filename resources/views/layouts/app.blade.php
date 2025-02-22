@@ -11,6 +11,10 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+        <!-- Estilos CSS -->
+        <link rel="stylesheet" href="{{ asset('librerias/font-awesome-v6/css/all.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('librerias/toastr/css/toastr.min.css') }}">
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
@@ -32,5 +36,17 @@
                 {{ $slot }}
             </main>
         </div>
+
+        <!-- URL BASE para peticiones AJAX -->
+        <script type="text/javascript">
+            const urlBase = {!! json_encode(url('/'))!!};
+        </script>
+
+        <!-- LIBRERIAS JS -->
+        <script src="{{ asset('librerias/jquery/jquery-3.5.1.min.js') }}"></script>
+        <script src="{{ asset('librerias/toastr/js/toastr.min.js') }}"></script>
+        <script src="{{ asset('js/global/scripts-globales.js') }}"></script>
+
+        {{$scripts ?? ''}}
     </body>
 </html>
