@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Editar información del paciente') }}
+            {{ __('Ingresar información del paciente') }}
         </h2>
     </x-slot>
 
@@ -47,51 +47,54 @@
                     </div>
 
                     <div class="flex">
-                        {{-- <div class="size-1/5">
-                            <x-input-label for="estado" :value="__('Estado')" />
-                            <select class="w-full p-2 mb-4 border rounded dark:bg-gray-900 dark:text-white dark:border-gray-700" id="estado" name="estado" required>
-                                @forelse ($estados as $estadoId => $estadoNombre)
-                                    <option value="{{ $estadoId }}">{{ $estadoNombre }}</option>
-                                @empty
-                                @endforelse
-                            </select>
-                            <x-input-error :messages="$errors->get('estado')" class="mt-2" />
-                        </div> --}}
-                        <div class="size-1/4">
-                            <x-input-label for="tipo_documento" :value="__('Tipo documento')" />
-                            <select class="w-full p-2 mb-4 border rounded dark:bg-gray-900 dark:text-white dark:border-gray-700" id="tipo_documento" name="tipo_documento" required>
-                                @forelse ($tipoDocumentos as $tipo)
-                                    <option value="{{ $tipo->id }}">{{ $tipo->nombre }}</option>
-                                @empty
-                                @endforelse
-                            </select>
-                            <x-input-error :messages="$errors->get('tipo_documento')" class="mt-2" />
+                        <div class="size-2/3">
+                            <div class="flex">
+                                <div class="size-1/2">
+                                    <x-input-label for="tipo_documento" :value="__('Tipo documento')" />
+                                    <select class="w-full p-2 mb-4 border rounded dark:bg-gray-900 dark:text-white dark:border-gray-700" id="tipo_documento" name="tipo_documento" required>
+                                        @forelse ($tipoDocumentos as $tipo)
+                                            <option value="{{ $tipo->id }}">{{ $tipo->nombre }}</option>
+                                        @empty
+                                        @endforelse
+                                    </select>
+                                    <x-input-error :messages="$errors->get('tipo_documento')" class="mt-2" />
+                                </div>
+                                <div class="size-1/2">
+                                    <x-input-label for="genero" :value="__('Genero')" />
+                                    <select class="w-full p-2 mb-4 border rounded dark:bg-gray-900 dark:text-white dark:border-gray-700" id="genero" name="genero" required>
+                                        @forelse ($generos as $genero)
+                                            <option value="{{ $genero->id }}">{{ $genero->nombre }}</option>
+                                        @empty
+                                        @endforelse
+                                    </select>
+                                    <x-input-error :messages="$errors->get('genero')" class="mt-2" />
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div class="size-1/2">
+                                    <x-input-label for="departamento" :value="__('Departamento')" />
+                                    <select class="w-full p-2 mb-4 border rounded dark:bg-gray-900 dark:text-white dark:border-gray-700" id="departamento" name="departamento" required>
+                                        @forelse ($departamentos as $depto)
+                                            <option value="{{ $depto->id }}">{{ $depto->nombre }}</option>
+                                        @empty
+                                        @endforelse
+                                    </select>
+                                    <x-input-error :messages="$errors->get('departemento')" class="mt-2" />
+                                </div>
+                                <div class="size-1/2">
+                                    <x-input-label for="municipio" :value="__('Municipio')" />
+                                    <!-- AQUÍ SE CARGARAN MEDIANTE AJAX LOS MUNICIPIOS DISPONIBLES DEL DEPARTAMENTO -->
+                                    <select class="w-full p-2 mb-4 border rounded dark:bg-gray-900 dark:text-white dark:border-gray-700" id="municipios-disponibles" name="municipio" required></select>
+                                    <x-input-error :messages="$errors->get('municipio')" class="mt-2" />
+                                </div>
+                            </div>
                         </div>
-                        <div class="size-1/4">
-                            <x-input-label for="genero" :value="__('Genero')" />
-                            <select class="w-full p-2 mb-4 border rounded dark:bg-gray-900 dark:text-white dark:border-gray-700" id="genero" name="genero" required>
-                                @forelse ($generos as $genero)
-                                    <option value="{{ $genero->id }}">{{ $genero->nombre }}</option>
-                                @empty
-                                @endforelse
-                            </select>
-                            <x-input-error :messages="$errors->get('genero')" class="mt-2" />
-                        </div>
-                        <div class="size-1/4">
-                            <x-input-label for="departamento" :value="__('Departamento')" />
-                            <select class="w-full p-2 mb-4 border rounded dark:bg-gray-900 dark:text-white dark:border-gray-700" id="departamento" name="departamento" required>
-                                @forelse ($departamentos as $depto)
-                                    <option value="{{ $depto->id }}">{{ $depto->nombre }}</option>
-                                @empty
-                                @endforelse
-                            </select>
-                            <x-input-error :messages="$errors->get('departemento')" class="mt-2" />
-                        </div>
-                        <div class="size-1/4">
-                            <x-input-label for="municipio" :value="__('Municipio')" />
-                            <!-- AQUÍ SE CARGARAN MEDIANTE AJAX LOS MUNICIPIOS DISPONIBLES DEL DEPARTAMENTO -->
-                            <select class="w-full p-2 mb-4 border rounded dark:bg-gray-900 dark:text-white dark:border-gray-700" id="municipios-disponibles" name="municipio" required></select>
-                            <x-input-error :messages="$errors->get('municipio')" class="mt-2" />
+                        <div class="size-1/3">
+                            <x-alert class="bg-blue-300 text-center mb-2" title="Nota!">
+                                Aquí se mostrará la imagen del paciente cuando sea registrado (Previsualización no disponible).
+                            </x-alert>
+                            <x-input-label for="imagen_paciente" :value="__('Imagen paciente')" />
+                            <x-file-input id="imagen_paciente" name="imagen_paciente" accept="image/*" />
                         </div>
                     </div>
                     <div class="text-center">

@@ -10,6 +10,7 @@ use App\Models\Municipio;
 use App\Models\Paciente;
 use App\Models\TipoDocumento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PacienteController extends Controller
 {
@@ -19,7 +20,6 @@ class PacienteController extends Controller
     public function index()
     {
         $pacientes = Paciente::all();
-        // dd($pacientes[0]->tipoDocumento);
         return view('dashboard', compact('pacientes'));
     }
 
@@ -42,6 +42,14 @@ class PacienteController extends Controller
     {
         $datosFormulario = $request->except('_token','_method');
 
+        // Se procesa la imagen si existe
+        $datosFormulario['imagen'] = null;
+        if ($request->file('imagen_paciente')) {
+            $url = Storage::put('pacientes', $request->file('imagen_paciente'));
+            $datosFormulario['imagen'] = $url;
+        }
+        // dd($datosFormulario);
+
         // Se define automaticamente su estado como habilitado
         $datosFormulario['estado'] = true;
 
@@ -52,6 +60,7 @@ class PacienteController extends Controller
         $pacienteObj->primer_apellido   = $datosFormulario['primer_apellido'];
         $pacienteObj->segundo_apellido  = $datosFormulario['segundo_apellido'];
         $pacienteObj->estado            = $datosFormulario['estado'];
+        $pacienteObj->imagen            = $datosFormulario['imagen'];
         $pacienteObj->tipo_documento_id = $datosFormulario['tipo_documento'];
         $pacienteObj->genero_id         = $datosFormulario['genero'];
         $pacienteObj->municipio_id      = $datosFormulario['municipio'];
@@ -84,11 +93,30 @@ class PacienteController extends Controller
     }
 
     /**
+     * Función para actualizar el estado de un paciente mediante su id
+     */
+    public function estadoPaciente($id)
+    {
+        $pacienteObj = Paciente::find($id);
+        $pacienteObj->estado = !$pacienteObj->estado;
+        $pacienteObj->save();
+    
+        return redirect('/dashboard')->with('info','Se actualizó el estado del paciente con ID: '. $pacienteObj->numero_documento .' con éxito!');
+    }
+
+    /**
      * Update the specified resource in storage.
      */
     public function update(ActualizarPacienteRequest $request, $id)
     {
         $datosFormulario = $request->except('_token','_method');
+
+        // Se procesa la imagen si existe
+        $datosFormulario['imagen'] = null;
+        if ($request->file('imagen_paciente')) {
+            $url = Storage::put('pacientes', $request->file('imagen_paciente'));
+            $datosFormulario['imagen'] = $url;
+        }
 
         Paciente::where('id',$id)->update([
             'numero_documento'  => $datosFormulario['numero_documento'],
@@ -97,6 +125,7 @@ class PacienteController extends Controller
             'primer_apellido'   => $datosFormulario['primer_apellido'],
             'segundo_apellido'  => $datosFormulario['segundo_apellido'],
             'estado'            => $datosFormulario['estado'],
+            'imagen'            => $datosFormulario['imagen'],
             'tipo_documento_id' => $datosFormulario['tipo_documento'],
             'genero_id'         => $datosFormulario['genero'],
             'municipio_id'      => $datosFormulario['municipio'],

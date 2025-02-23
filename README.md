@@ -13,18 +13,6 @@ Repositorio para prueba técnica "PRUEBA TECNICA CARGO DESARROLLADOR JUNIOR".
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
 ## Requisitos pre-instalación
@@ -44,13 +32,25 @@ Para la instalación del proyecto asegurate de seguir los siguiente pasos:
 - Extrae en la carpeta raiz del proyecto el archivo "vendor.zip" en caso de que no cuentes con composer en tu computador.
 - Extrae en la carpeta raiz del proyecto el archivo "storage.zip".
 - Abre una terminal o cmd en la carpeta raiz del proyecto y ejecuta los siguiente comandos:
-- "php artisan migrate" y luego "php artisan migrate:fresh --seed"
+- "php artisan migrate" y luego "php artisan migrate --seed"
+- "php artisan storage:link" ó accede a la url "storage-link" la cual te generará el mismo resultado del comando
 
 ## Funcionalidades
 
 El sistema tiene incorporado las siguientes funcionalidades:
 - Autenticación mediante identificación y clave.
-- Registro, visualización, actualización, desactivación/activación y eliminación de pacientes.
+- Registro, visualización, actualización, deshabilitación/habilitación y eliminación de pacientes.
+- Carga de imagenes de paciente.
+- Al ejecutar las migraciones se establecerá el usuario administrador "1000000000" y su contraseña por defecto (veala en el documento de requerimientos).
+
+## Manual de usuario
+
+- Para acceder al sistema use el usuario por defecto "1000000000" y la contraseña proporcionada en los requerimientos.
+- Para registrar un paciente nuevo pulse el botón "Agregar Nuevo", lo dirigirá al formulario de registro de paciente.
+- Para actualizar toda la información de un paciente pulse el botón "Editar" que se encuentra en el listado de pacientes.
+- Para eliminar un paciente pulse el botón "Eliminar" que se encuentra en el listado de pacientes, se le pedirá una confirmación antes de continuar con la operación.
+- Para actualizar unicamente el estado del paciente puede pulsar el botón "Habilitar / Deshabilitar" que se encuentra en el listado de pacientes.
+- En el formulario de registro y actualización de pacientes, al seleccionar el departamento sus municipios serán cargados automaticamente en la lista desplegable "municipios".
 
 ## License
 

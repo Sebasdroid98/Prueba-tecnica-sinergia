@@ -23,6 +23,7 @@ class PacienteFactory extends Factory
             'primer_apellido'       => $this->faker->lastName(),
             'segundo_apellido'      => $this->faker->lastName(),
             'estado'                => $this->faker->randomElement([true, false]),
+            'imagen'                => null,
             'tipo_documento_id'     => $this->faker->randomElement([1, 2]),
             'genero_id'             => $this->faker->randomElement([1, 2]),
             'municipio_id'          => $this->faker->randomElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])

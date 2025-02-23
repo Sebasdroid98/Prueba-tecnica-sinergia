@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,14 +20,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/dashboard', [PacienteController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+/* storage link */
+Route::get('storage-link', function(){
+    Artisan::call('storage:link');
+    return redirect('/')->with('success','Se generó el enlace correctamente.');
+})->middleware('auth');
+
 Route::controller(PacienteController::class)->group(function() {
     Route::get('dashboard','index')->name('dashboard');
     Route::get('paciente-create', 'create')->name('paciente.create');
     Route::get('paciente-edit/{id}', 'edit')->name('paciente.edit');
+    Route::get('paciente-status/{id}', 'estadoPaciente')->name('paciente.status');
     Route::post('paciente-store', 'store')->name('paciente.store');
     Route::put('paciente-update/{id}', 'update')->name('paciente.update');
-    Route::delete('paciente-delete/{id}', 'destroy');
+    Route::delete('paciente-delete/{id}', 'destroy')->name('paciente.delete');
     Route::get('obtener-municipios-depto/{id}', 'obtenerMunicipiosDeptoById')->name('obtener-municipios-depto');
 })->middleware('auth');
 

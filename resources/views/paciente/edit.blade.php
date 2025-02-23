@@ -52,80 +52,100 @@
                     </x-alert>
 
                     <div class="flex">
-                        <div class="size-1/5">
-                            <x-input-label for="estado" :value="__('Estado')" />
-                            <select class="w-full p-2 mb-4 border rounded dark:bg-gray-900 dark:text-white dark:border-gray-700" id="estado" name="estado">
-                                <optgroup label="Actual">
-                                    <option value="{{ $paciente->estado }}">{{ $paciente->estado ? 'Habilitado' : 'Deshabilitado' }}</option>
-                                </optgroup>
-                                <optgroup label="Dísponible">
-                                    @forelse ($estados as $estadoId => $estadoNombre)
-                                        @continue($estadoId == $paciente->estado)
-                                        <option value="{{ $estadoId }}">{{ $estadoNombre }}</option>
-                                    @empty
-                                    @endforelse
-                                </optgroup>
-                            </select>
-                            <x-input-error :messages="$errors->get('tipo_documento')" class="mt-2" />
+                        <div class="size-2/3">
+                            <div class="flex">
+                                <div class="size-1/5">
+                                    <x-input-label for="estado" :value="__('Estado')" />
+                                    <select class="w-full p-2 mb-4 border rounded dark:bg-gray-900 dark:text-white dark:border-gray-700" id="estado" name="estado">
+                                        <optgroup label="Actual">
+                                            <option value="{{ $paciente->estado }}">{{ $paciente->estado ? 'Habilitado' : 'Deshabilitado' }}</option>
+                                        </optgroup>
+                                        <optgroup label="Dísponible">
+                                            @forelse ($estados as $estadoId => $estadoNombre)
+                                                @continue($estadoId == $paciente->estado)
+                                                <option value="{{ $estadoId }}">{{ $estadoNombre }}</option>
+                                            @empty
+                                            @endforelse
+                                        </optgroup>
+                                    </select>
+                                    <x-input-error :messages="$errors->get('tipo_documento')" class="mt-2" />
+                                </div>
+                                <div class="size-2/5">
+                                    <x-input-label for="tipo_documento" :value="__('Tipo documento')" />
+                                    <select class="w-full p-2 mb-4 border rounded dark:bg-gray-900 dark:text-white dark:border-gray-700" id="tipo_documento" name="tipo_documento">
+                                        <optgroup label="Actual">
+                                            <option value="{{ $paciente->tipoDocumento->id }}">{{ $paciente->tipoDocumento->nombre }}</option>
+                                        </optgroup>
+                                        <optgroup label="Dísponible">
+                                            @forelse ($tipoDocumentos as $tipo)
+                                                @continue($tipo->id == $paciente->tipoDocumento->id)
+                                                <option value="{{ $tipo->id }}">{{ $tipo->nombre }}</option>
+                                            @empty
+                                            @endforelse
+                                        </optgroup>
+                                    </select>
+                                    <x-input-error :messages="$errors->get('tipo_documento')" class="mt-2" />
+                                </div>
+                                <div class="size-2/5">
+                                    <x-input-label for="genero" :value="__('Genero')" />
+                                    <select class="w-full p-2 mb-4 border rounded dark:bg-gray-900 dark:text-white dark:border-gray-700" id="genero" name="genero">
+                                        <optgroup label="Actual">
+                                            <option value="{{ $paciente->genero->id }}">{{ $paciente->genero->nombre }}</option>
+                                        </optgroup>
+                                        <optgroup label="Dísponible">
+                                            @forelse ($generos as $genero)
+                                                @continue($genero->id == $paciente->genero->id)
+                                                <option value="{{ $genero->id }}">{{ $genero->nombre }}</option>
+                                            @empty
+                                            @endforelse
+                                        </optgroup>
+                                    </select>
+                                    <x-input-error :messages="$errors->get('genero')" class="mt-2" />
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div class="size-1/2">
+                                    <x-input-label for="departamento" :value="__('Departamento')" />
+                                    <select class="w-full p-2 mb-4 border rounded dark:bg-gray-900 dark:text-white dark:border-gray-700" id="departamento" name="departamento">
+                                        <optgroup label="Actual">
+                                            <option value="{{ $paciente->municipio->departamento->id }}">{{ $paciente->municipio->departamento->nombre }}</option>
+                                        </optgroup>
+                                        <optgroup label="Dísponible">
+                                            @forelse ($departamentos as $depto)
+                                                @continue($depto->id == $paciente->municipio->departamento->id)
+                                                <option value="{{ $depto->id }}">{{ $depto->nombre }}</option>
+                                            @empty
+                                            @endforelse
+                                        </optgroup>
+                                    </select>
+                                    <x-input-error :messages="$errors->get('departemento')" class="mt-2" />
+                                </div>
+                                <div class="size-1/2">
+                                    <x-input-label for="municipio" :value="__('Municipio')" />
+                                    <select class="w-full p-2 mb-4 border rounded dark:bg-gray-900 dark:text-white dark:border-gray-700" id="municipio" name="municipio">
+                                        <optgroup label="Actual">
+                                            <option value="{{ $paciente->municipio->id }}">{{ $paciente->municipio->nombre }}</option>
+                                        </optgroup>
+                                        <!-- AQUÍ SE CARGARAN MEDIANTE AJAX LOS MUNICIPIOS DISPONIBLES DEL DEPARTAMENTO -->
+                                        <optgroup label="Dísponible" id="municipios-disponibles"></optgroup>
+                                    </select>
+                                    <x-input-error :messages="$errors->get('municipio')" class="mt-2" />
+                                </div>
+                            </div>
+                            
                         </div>
-                        <div class="size-1/5">
-                            <x-input-label for="tipo_documento" :value="__('Tipo documento')" />
-                            <select class="w-full p-2 mb-4 border rounded dark:bg-gray-900 dark:text-white dark:border-gray-700" id="tipo_documento" name="tipo_documento">
-                                <optgroup label="Actual">
-                                    <option value="{{ $paciente->tipoDocumento->id }}">{{ $paciente->tipoDocumento->nombre }}</option>
-                                </optgroup>
-                                <optgroup label="Dísponible">
-                                    @forelse ($tipoDocumentos as $tipo)
-                                        @continue($tipo->id == $paciente->tipoDocumento->id)
-                                        <option value="{{ $tipo->id }}">{{ $tipo->nombre }}</option>
-                                    @empty
-                                    @endforelse
-                                </optgroup>
-                            </select>
-                            <x-input-error :messages="$errors->get('tipo_documento')" class="mt-2" />
-                        </div>
-                        <div class="size-1/5">
-                            <x-input-label for="genero" :value="__('Genero')" />
-                            <select class="w-full p-2 mb-4 border rounded dark:bg-gray-900 dark:text-white dark:border-gray-700" id="genero" name="genero">
-                                <optgroup label="Actual">
-                                    <option value="{{ $paciente->genero->id }}">{{ $paciente->genero->nombre }}</option>
-                                </optgroup>
-                                <optgroup label="Dísponible">
-                                    @forelse ($generos as $genero)
-                                        @continue($genero->id == $paciente->genero->id)
-                                        <option value="{{ $genero->id }}">{{ $genero->nombre }}</option>
-                                    @empty
-                                    @endforelse
-                                </optgroup>
-                            </select>
-                            <x-input-error :messages="$errors->get('genero')" class="mt-2" />
-                        </div>
-                        <div class="size-1/5">
-                            <x-input-label for="departamento" :value="__('Departamento')" />
-                            <select class="w-full p-2 mb-4 border rounded dark:bg-gray-900 dark:text-white dark:border-gray-700" id="departamento" name="departamento">
-                                <optgroup label="Actual">
-                                    <option value="{{ $paciente->municipio->departamento->id }}">{{ $paciente->municipio->departamento->nombre }}</option>
-                                </optgroup>
-                                <optgroup label="Dísponible">
-                                    @forelse ($departamentos as $depto)
-                                        @continue($depto->id == $paciente->municipio->departamento->id)
-                                        <option value="{{ $depto->id }}">{{ $depto->nombre }}</option>
-                                    @empty
-                                    @endforelse
-                                </optgroup>
-                            </select>
-                            <x-input-error :messages="$errors->get('departemento')" class="mt-2" />
-                        </div>
-                        <div class="size-1/5">
-                            <x-input-label for="municipio" :value="__('Municipio')" />
-                            <select class="w-full p-2 mb-4 border rounded dark:bg-gray-900 dark:text-white dark:border-gray-700" id="municipio" name="municipio">
-                                <optgroup label="Actual">
-                                    <option value="{{ $paciente->municipio->id }}">{{ $paciente->municipio->nombre }}</option>
-                                </optgroup>
-                                <!-- AQUÍ SE CARGARAN MEDIANTE AJAX LOS MUNICIPIOS DISPONIBLES DEL DEPARTAMENTO -->
-                                <optgroup label="Dísponible" id="municipios-disponibles"></optgroup>
-                            </select>
-                            <x-input-error :messages="$errors->get('municipio')" class="mt-2" />
+                        <div class="size-1/3">
+                            @if ($paciente->imagen)
+                                <div class="w-full">
+                                    <img src="{{ Storage::url($paciente->imagen) }}" alt="Imagen paciente">
+                                </div>
+                            @else
+                                <x-alert class="bg-blue-300 text-center mb-2" title="Nota!">
+                                    Aquí se mostrará la imagen del paciente cuando sea registrado.
+                                </x-alert>
+                            @endif
+                            <x-input-label for="imagen_paciente" :value="__('Imagen paciente')" />
+                            <x-file-input id="imagen_paciente" name="imagen_paciente" accept="image/*" />
                         </div>
                     </div>
                     <div class="text-center">

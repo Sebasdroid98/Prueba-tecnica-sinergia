@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('primer_apellido', 45);
             $table->string('segundo_apellido', 45)->nullable();
             $table->boolean('estado');
+            $table->string('imagen', 200)->nullable();
 
             $table->unsignedBigInteger('tipo_documento_id')->nullable();
             $table->unsignedBigInteger('genero_id')->nullable();

@@ -45,13 +45,27 @@
                         @forelse ($pacientes as $paciente)     
                             <tr class="bg-white dark:bg-gray-800">
                                 <td class="px-4 py-2 border dark:border-gray-700">{{ $paciente->numero_documento }}</td>
-                                <td class="px-4 py-2 border dark:border-gray-700">{{ $paciente->fullname }}</td>
+                                <td class="px-4 py-2 border dark:border-gray-700">
+                                    <i class="{{ $paciente->imagen ? 'fa-solid fa-image-portrait' : '' }}"></i>
+                                    {{ $paciente->fullname }}
+                                </td>
+                                <i class=""></i>
                                 <td class="px-4 py-2 border dark:border-gray-700">{{ $paciente->tipoDocumento->nombre }}</td>
                                 <td class="px-4 py-2 border dark:border-gray-700">
                                     <i class=" {{ $paciente->estado ? 'fa-solid fa-circle-check' : 'fa-solid fa-user-slash' }}"></i>&nbsp;
-                                    {{ $paciente->estado ? 'Habilitado' : 'Deshabilitado' }}
+                                    @if ($paciente->estado)
+                                        <x-link-button href="{{ route('paciente.status', ['id' => $paciente->id]) }}">
+                                            <i class="fa-solid fa-user-slash"></i>&nbsp;
+                                            Deshabilitar
+                                        </x-link-button>
+                                    @else
+                                        <x-link-button href="{{ route('paciente.status', ['id' => $paciente->id]) }}">
+                                            <i class="fa-solid fa-circle-check"></i>&nbsp;
+                                            Habilitar
+                                        </x-link-button>
+                                    @endif
                                 </td>
-                                <td class="px-4 py-2 border dark:border-gray-700 size-1/4">
+                                <td class="px-4 py-2 border dark:border-gray-700">
                                     <x-link-button href="{{ route('paciente.edit', ['id' => $paciente->id]) }}">
                                         <i class="fa-solid fa-pen-to-square"></i>&nbsp;Editar
                                     </x-link-button>
