@@ -27,10 +27,12 @@ Puedes descargar la version de XAMPP aquí [xampp-windows-x64-8.1.25-0-VS16-inst
 Para la instalación del proyecto asegurate de seguir los siguiente pasos:
 
 - Crea una copia del archivo ".env.example" y renombrala como ".env".
-- Abre una terminal o cmd en la carpeta raiz del proyecto y ejecuta el siguiente comando "php artisan key:generate", lo que creará la llave adecuada para el proyecto en el archivo ".env".
-- Configura en el archivo ".env" las llaves "DB_DATABASE, DB_USERNAME y DB_PASSWORD" según como tengas configurado tu entorno de desarrollo.
+- En la llave "APP_NAME" en el archivo ".env" coloca el nombre del directorio que contiene el proyecto, Ejm "ptc_sinergia".
+- En la llave "APP_URL" en la sección "ptc_sinergia" debe ir colocado el mismo contenido de la variable "APP_NAME".
 - Extrae en la carpeta raiz del proyecto el archivo "vendor.zip" en caso de que no cuentes con composer en tu computador.
 - Extrae en la carpeta raiz del proyecto el archivo "storage.zip".
+- Abre una terminal o cmd en la carpeta raiz del proyecto y ejecuta el siguiente comando "php artisan key:generate", lo que creará la llave adecuada para el proyecto en el archivo ".env".
+- Configura en el archivo ".env" las llaves "DB_DATABASE, DB_USERNAME y DB_PASSWORD" según como tengas configurado tu entorno de desarrollo.
 - Abre una terminal o cmd en la carpeta raiz del proyecto y ejecuta los siguiente comandos:
 - "php artisan migrate" y luego "php artisan migrate --seed"
 - "php artisan storage:link" ó accede a la url "storage-link" la cual te generará el mismo resultado del comando.
