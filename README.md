@@ -35,6 +35,7 @@ Para la instalación del proyecto asegurate de seguir los siguiente pasos:
 - Configura en el archivo ".env" las llaves "DB_DATABASE, DB_USERNAME y DB_PASSWORD" según como tengas configurado tu entorno de desarrollo.
 - Abre una terminal o cmd en la carpeta raiz del proyecto y ejecuta los siguiente comandos:
 - "php artisan migrate" y luego "php artisan migrate --seed"
+- "npm install" y luego "npm run build" para compilar los estilos de tailwindCSS.
 - "php artisan storage:link" ó accede a la url "storage-link" la cual te generará el mismo resultado del comando.
 - "npm run build" solo en caso de que no se vea correctamente las interfaces del sistema.
 
