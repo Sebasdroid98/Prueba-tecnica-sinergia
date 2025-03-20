@@ -25,10 +25,10 @@ class RegistrarPacienteRequest extends FormRequest
     {
         return [
             'numero_documento'  => ['required','string','max:15', Rule::unique(Paciente::class)],
-            'primer_nombre'     => ['required','string','max:45'],
-            'segundo_nombre'    => ['nullable','string','max:45'],
-            'primer_apellido'   => ['required','string','max:45'],
-            'segundo_apellido'  => ['nullable','string','max:45'],
+            'primer_nombre'     => ['required','string','max:45','regex:/^[\p{L}\s]+$/u'],
+            'segundo_nombre'    => ['nullable','string','max:45','regex:/^[\p{L}\s]+$/u'],
+            'primer_apellido'   => ['required','string','max:45','regex:/^[\p{L}\s]+$/u'],
+            'segundo_apellido'  => ['nullable','string','max:45','regex:/^[\p{L}\s]+$/u'],
             'tipo_documento'    => ['required','numeric'],
             'genero'            => ['required','numeric'],
             'departamento'      => ['required','numeric'],

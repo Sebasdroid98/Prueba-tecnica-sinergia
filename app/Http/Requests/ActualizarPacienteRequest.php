@@ -24,12 +24,15 @@ class ActualizarPacienteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'numero_documento'  => ['required','string','max:15', Rule::unique(Paciente::class)->ignore(request('numero_documento'))],
-            'numero_documento'  => ['required','string','max:15'],
-            'primer_nombre'     => ['required','string','max:45'],
-            'segundo_nombre'    => ['nullable','string','max:45'],
-            'primer_apellido'   => ['required','string','max:45'],
-            'segundo_apellido'  => ['nullable','string','max:45'],
+            'numero_documento' => [
+                'required', 'string', 'max:15',
+                Rule::unique('pacientes')->ignore($this->route('id'))
+            ],
+            // 'numero_documento'  => ['required','string','max:15'],
+            'primer_nombre'     => ['required','string','max:45','regex:/^[\p{L}\s]+$/u'],
+            'segundo_nombre'    => ['nullable','string','max:45','regex:/^[\p{L}\s]+$/u'],
+            'primer_apellido'   => ['required','string','max:45','regex:/^[\p{L}\s]+$/u'],
+            'segundo_apellido'  => ['nullable','string','max:45','regex:/^[\p{L}\s]+$/u'],
             'estado'            => ['required','numeric'],
             'tipo_documento'    => ['required','numeric'],
             'genero'            => ['required','numeric'],
