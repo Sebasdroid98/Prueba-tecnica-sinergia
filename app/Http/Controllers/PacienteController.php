@@ -41,7 +41,6 @@ class PacienteController extends Controller
     public function store(RegistrarPacienteRequest $request)
     {
         $datosFormulario = $request->except('_token','_method');
-        dd($datosFormulario);
 
         // Se procesa la imagen si existe
         $datosFormulario['imagen'] = null;

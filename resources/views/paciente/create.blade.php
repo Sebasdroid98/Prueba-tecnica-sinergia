@@ -14,66 +14,65 @@
                 </x-alert> --}}
                 <form method="POST" action="{{ route('paciente.store') }}" enctype="multipart/form-data" autocomplete="on">
                     @csrf
-                    <div class="flex my-3">
-                        <div class="size-1/5">
+                    <div class="flex my-2">
+                        <div class="size-1/3 form-group">
+                            <x-input-label for="tipo_documento" :value="__('Tipo documento')" />
+                            <select class="w-full p-2 border rounded mt-1 dark:bg-gray-900 dark:text-white dark:border-gray-700" id="tipo_documento" name="tipo_documento" required>
+                                @forelse ($tipoDocumentos as $tipo)
+                                    <option value="{{ $tipo->id }}">{{ $tipo->nombre }}</option>
+                                @empty
+                                @endforelse
+                            </select>
+                            <x-input-error :messages="$errors->get('tipo_documento')" class="mt-2" />
+                        </div>
+                        <div class="size-1/3 form-group">
                             <x-input-label for="numero_documento" :value="__('Número documento')" />
                             <x-text-input id="numero_documento" class="block mt-1 w-full" type="text" name="numero_documento" placeholder="obligatorio" :value="old('numero_documento')" maxlength="15" required />
                             <x-input-error :messages="$errors->get('numero_documento')" class="mt-2" />
                         </div>
-                        
-                        <div class="size-1/5">
+                        <div class="size-1/3 form-group">
+                            <x-input-label for="genero" :value="__('Genero')" />
+                            <select class="w-full p-2 mb-4 border rounded mt-1 dark:bg-gray-900 dark:text-white dark:border-gray-700" id="genero" name="genero" required>
+                                @forelse ($generos as $genero)
+                                    <option value="{{ $genero->id }}">{{ $genero->nombre }}</option>
+                                @empty
+                                @endforelse
+                            </select>
+                            <x-input-error :messages="$errors->get('genero')" class="mt-2" />
+                        </div>
+                    </div>
+                    <div class="flex my-2">
+                        <div class="size-1/4 form-group">
                             <x-input-label for="primer_nombre" :value="__('Primer nombre')" />
                             <x-text-input id="primer_nombre" class="block mt-1 w-full" type="text" name="primer_nombre" placeholder="obligatorio" :value="old('primer_nombre')" maxlength="45" required />
                             <x-input-error :messages="$errors->get('primer_nombre')" class="mt-2" />
                         </div>
     
-                        <div class="size-1/5">
+                        <div class="size-1/4 form-group">
                             <x-input-label for="segundo_nombre" :value="__('Segundo nombre')" />
                             <x-text-input id="segundo_nombre" class="block mt-1 w-full" type="text" name="segundo_nombre" placeholder="opcional" :value="old('segundo_nombre')" maxlength="45" />
                             <x-input-error :messages="$errors->get('segundo_nombre')" class="mt-2" />
                         </div>
     
-                        <div class="size-1/5">
+                        <div class="size-1/4 form-group">
                             <x-input-label for="primer_apellido" :value="__('Primer apellido')" />
                             <x-text-input id="primer_apellido" class="block mt-1 w-full" type="text" name="primer_apellido" placeholder="obligatorio" :value="old('primer_apellido')" maxlength="45" required />
                             <x-input-error :messages="$errors->get('primer_apellido')" class="mt-2" />
                         </div>
     
-                        <div class="size-1/5">
+                        <div class="size-1/4 form-group">
                             <x-input-label for="segundo_apellido" :value="__('Segundo apellido')" />
                             <x-text-input id="segundo_apellido" class="block mt-1 w-full" type="text" name="segundo_apellido" placeholder="opcional" :value="old('segundo_apellido')" maxlength="45" />
                             <x-input-error :messages="$errors->get('segundo_apellido')" class="mt-2" />
                         </div>
                     </div>
 
-                    <div class="flex">
-                        <div class="size-2/3">
+                    <div class="flex my-2">
+                        <div class="size-2/3 mr-2">
                             <div class="flex">
-                                <div class="size-1/2">
-                                    <x-input-label for="tipo_documento" :value="__('Tipo documento')" />
-                                    <select class="w-full p-2 mb-4 border rounded dark:bg-gray-900 dark:text-white dark:border-gray-700" id="tipo_documento" name="tipo_documento" required>
-                                        @forelse ($tipoDocumentos as $tipo)
-                                            <option value="{{ $tipo->id }}">{{ $tipo->nombre }}</option>
-                                        @empty
-                                        @endforelse
-                                    </select>
-                                    <x-input-error :messages="$errors->get('tipo_documento')" class="mt-2" />
-                                </div>
-                                <div class="size-1/2">
-                                    <x-input-label for="genero" :value="__('Genero')" />
-                                    <select class="w-full p-2 mb-4 border rounded dark:bg-gray-900 dark:text-white dark:border-gray-700" id="genero" name="genero" required>
-                                        @forelse ($generos as $genero)
-                                            <option value="{{ $genero->id }}">{{ $genero->nombre }}</option>
-                                        @empty
-                                        @endforelse
-                                    </select>
-                                    <x-input-error :messages="$errors->get('genero')" class="mt-2" />
-                                </div>
-                            </div>
-                            <div class="flex">
-                                <div class="size-1/2">
+                                <div class="size-1/2 form-group">
                                     <x-input-label for="departamento" :value="__('Departamento')" />
-                                    <select class="w-full p-2 mb-4 border rounded dark:bg-gray-900 dark:text-white dark:border-gray-700" id="departamento" name="departamento" required>
+                                    <select class="w-full p-2 mb-4 border rounded mt-1 dark:bg-gray-900 dark:text-white dark:border-gray-700" id="departamento" name="departamento" required>
                                         @forelse ($departamentos as $depto)
                                             <option value="{{ $depto->id }}">{{ $depto->nombre }}</option>
                                         @empty
@@ -81,7 +80,7 @@
                                     </select>
                                     <x-input-error :messages="$errors->get('departemento')" class="mt-2" />
                                 </div>
-                                <div class="size-1/2">
+                                <div class="size-1/2 form-group">
                                     <x-input-label for="municipio" :value="__('Municipio')" />
                                     <!-- AQUÍ SE CARGARAN MEDIANTE AJAX LOS MUNICIPIOS DISPONIBLES DEL DEPARTAMENTO -->
                                     <select class="w-full p-2 mb-4 border rounded dark:bg-gray-900 dark:text-white dark:border-gray-700" id="municipios-disponibles" name="municipio" required></select>
@@ -89,7 +88,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="size-1/3">
+                        <div class="size-1/3 form-group">
                             <x-alert class="bg-blue-300 text-center mb-2" title="Nota!">
                                 Aquí se mostrará la imagen del paciente cuando sea registrado (Previsualización no disponible).
                             </x-alert>
