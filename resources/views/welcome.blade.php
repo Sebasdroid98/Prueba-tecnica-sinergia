@@ -33,7 +33,7 @@
 
             <div class="max-w-7xl mx-auto p-6 lg:p-8">
 
-                <div class="text-center">
+                <div class="text-center dark:text-white">
                     <h1>!Bienvenido al proyecto de prueba creado por Yoni Sebastián Zamora Quirá!</h1>
                     <p>Presione "Log in" para acceder al sistema, esta ubicado en la parte superior derecha de la pantalla.</p>
                 </div>
